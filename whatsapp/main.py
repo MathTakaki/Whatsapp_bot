@@ -27,5 +27,23 @@ def get_message():
     print("Message received: " + whatsapp_message)
     
     return whatsapp_message
+
+
+# Posts
+def post_response(message):
+    global x ,y
     
-get_message()
+    position = pt.locateOnScreen("whatsapp/smiley_paperclip.png", confidence=.6)
+    x = position[0]
+    y = position[1]
+    pt.moveTo(x + 200, y + 20, duration=.5)
+    pt.click()
+    pt.typewrite(message, interval=.01)
+    
+    #pt.typewrite("\n", interval=.01)
+
+
+# Processes response
+def
+    
+post_response(get_message())
