@@ -25,7 +25,7 @@ def get_message():
     pt.moveRel(50,-221)
     pt.click()
     whatsapp_message = pyperclip.paste()
-    pt.click()
+    #pt.click()
     print("Message received: " + whatsapp_message)
     
     return whatsapp_message
@@ -42,14 +42,14 @@ def post_response(message):
     pt.click()
     pt.typewrite(message, interval=.01)
     
-    #pt.typewrite("\n", interval=.01)
+    pt.typewrite("\n", interval=.01)
 
 
 # Processes response
 def processes_response(message):
     random_no = random.randrange(3)
     
-    if "?" in str(message).lower():
+    if "oi" in str(message).lower():
         return "Bot japoronga teste 123"
     else:
         if random_no == 0:
@@ -66,19 +66,37 @@ def check_for_new_messages():
     
     while True:
         #continuously checks
+        test_group = "."
+        grupo = False
         try:
-            position = pt.locateOnScreen("whatsapp/green_circle.png", confidence=.75)
-            
+            position = pt.locateOnScreen("whatsapp/green_circle.png", confidence=.8)
             if position is not None:
                 pt.moveTo(position)
                 pt.moveRel(-100,0)
+                pt.click()
+                pt.moveTo(660,65)
+                pt.click()
+                sleep(1)
+                pt.moveTo(860,475)
+                pt.tripleClick()
+                pt.rightClick()
+                pt.moveRel(15,90)
+                pt.click()
+                test_group = pyperclip.paste()
+                if "Grupo" in test_group == True:
+                    grupo == True
+                else:
+                    grupo == False
+                print(test_group)
+                sleep(1)
+                pt.moveTo(606,77)
                 pt.click()
                 sleep(.5)
             
         except(Exception):
             print("No new other users with new messages located")
         
-        if pt.pixelMatchesColor(int(x + 50), int(y - 45),(32,44,51), tolerance = 10):
+        if pt.pixelMatchesColor(int(x + 50), int(y - 45),(32,44,51), tolerance = 10) and grupo == False:
             print("is the gray")
             processed_message = processes_response(get_message())
             post_response(processed_message)
