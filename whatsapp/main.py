@@ -1,10 +1,11 @@
 import pyautogui as pt
 from time import sleep
+#from comandos. import comando
 import pyperclip
 import random
 
 sleep(2)
-pt.moveTo(25,315)
+pt.moveTo(pt.locateOnScreen("whatsapp/whatsapp_icon.png", confidence=.9))
 pt.click()
 sleep(1)
 position1 = pt.locateOnScreen("whatsapp/smiley_paperclip.png", confidence=.6)
@@ -50,10 +51,14 @@ def processes_response(message):
     random_no = random.randrange(3)
     
     if "oi" in str(message).lower():
-        return "Bot japoronga teste 123"
+        return "oii"
+    elif "vai amanhã?" in str(message).lower():
+        return "Sim"
+    elif "/" in str(message):
+        return 
     else:
         if random_no == 0:
-            return "cholha"
+            return "Provavelmente"
         elif random_no == 1:
             return "ablubluble"
         else:
@@ -63,11 +68,11 @@ def processes_response(message):
 # chech new messages
 def check_for_new_messages():
     pt.moveTo(x + 50, y - 45, duration=.5)
-    
+    grupo = True
     while True:
         #continuously checks
         test_group = "."
-        grupo = False
+        
         try:
             position = pt.locateOnScreen("whatsapp/green_circle.png", confidence=.8)
             if position is not None:
@@ -83,13 +88,14 @@ def check_for_new_messages():
                 pt.moveRel(15,90)
                 pt.click()
                 test_group = pyperclip.paste()
-                if "Grupo" in test_group == True:
-                    grupo == True
+                if "Grupo" in str(test_group):
+                    grupo = True
+                    print("grupo",grupo)
                 else:
-                    grupo == False
-                print(test_group)
+                    grupo = False
+                    print("n grupo",grupo)
                 sleep(1)
-                pt.moveTo(606,77)
+                pt.moveTo(pt.locateOnScreen("whatsapp/close_x.png", confidence = .9))
                 pt.click()
                 sleep(.5)
             
